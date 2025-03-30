@@ -8,18 +8,22 @@ function MainSection() {
   const [displayedTestimonials, setDisplayedTestimonials] = useState([]);
 
   useEffect(() => {
+    // Randomize courses and testimonials on each render
     const shuffledCourses = [...courses].sort(() => 0.5 - Math.random());
-    setFeaturedCourses(shuffledCourses.slice(0, 3));
-
     const shuffledTestimonials = [...testimonials].sort(() => 0.5 - Math.random());
-    setDisplayedTestimonials(shuffledTestimonials.slice(0, 2));
+
+    setFeaturedCourses(shuffledCourses.slice(0, 3));       // 3 random courses
+    setDisplayedTestimonials(shuffledTestimonials.slice(0, 2)); // 2 random testimonials
   }, []);
 
   return (
     <main className="index">
       <section id="about">
         <h2>About LMS</h2>
-        <p>The Learning Management System (LMS) helps students and instructors manage courses, quizzes, and track performance efficiently.</p>
+        <p>
+          The Learning Management System (LMS) helps students and instructors manage courses,
+          quizzes, and track performance efficiently.
+        </p>
         <h3>Key Features:</h3>
         <ul>
           <li>Enroll in courses</li>
@@ -33,7 +37,11 @@ function MainSection() {
         <div className="course-list">
           {featuredCourses.map(course => (
             <div key={course.id} className="course-card">
-              <img src={course.image} alt={course.name} style={{ width: '100%', borderRadius: '10px' }} />
+              <img
+                src={course.image}
+                alt={course.name}
+                style={{ width: '100%', borderRadius: '10px' }}
+              />
               <h3>{course.name}</h3>
               <p><strong>Instructor:</strong> {course.instructor}</p>
               <p>{course.duration}</p>

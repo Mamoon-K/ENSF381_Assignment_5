@@ -5,12 +5,14 @@ import '../styles.css';
 function Header() {
   return (
     <header>
-      <img src="images/logo.jpg" alt="LMS Logo" style={{ width: '100px', height: '100px' }} />
+      <img src="/images/logo.jpg" alt="LMS Logo" style={{ width: '100px', height: '100px' }} />
       <h1>LMS - Learning Management System</h1>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/courses">Courses</Link>
-        <Link to="/login">Login</Link>
+        <ul className="nav-links">
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/courses">Courses</Link></li>
+          <li><Link to="/login">Login</Link></li>
+        </ul>
       </nav>
     </header>
   );
