@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import CourseCatalog from './CourseCatalog';       // ✅ match filename
-import EnrollmentList from './EnrollmentList';     // ✅ match filename
-import courses from '../data/courses';             // ✅ relative path
-
+import CourseCatalog from './CourseCatalog';
+import EnrollmentList from './EnrollmentList';
+import courses from '../data/courses';
 
 function CoursesPage() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
 
-  // Load from localStorage
   useEffect(() => {
     const storedCourses = localStorage.getItem('enrolledCourses');
     if (storedCourses) {
@@ -17,7 +15,6 @@ function CoursesPage() {
     }
   }, []);
 
-  // Save to localStorage on change
   useEffect(() => {
     localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
   }, [enrolledCourses]);
@@ -31,16 +28,16 @@ function CoursesPage() {
   };
 
   return (
-    <div>
+    <div className="courses-page">
       <Header />
-      <main className="index">
+      <div className="content">
         <EnrollmentList enrolledCourses={enrolledCourses} onDrop={handleDrop} />
         <CourseCatalog
           courses={courses}
           enrolledCourses={enrolledCourses}
           onEnroll={handleEnroll}
         />
-      </main>
+      </div>
       <Footer />
     </div>
   );
