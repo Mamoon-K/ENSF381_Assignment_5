@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer>
+    <footer style={styles.footer}>
       <p>&copy; 2025 LMS. All rights reserved.</p>
     </footer>
   );
-}
+};
+
+const styles = {
+  footer: { textAlign: "center", padding: "10px", backgroundColor: "#003366", color: "white", marginTop: "20px" }
+};
 
 export default Footer;

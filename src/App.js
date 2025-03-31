@@ -1,18 +1,30 @@
+import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Homepage from './components/Homepage';
-import CoursesPage from './components/CoursesPage';
-import LoginPage from './components/LoginPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./components/Homepage";
+import Login from "./components/LoginPage";
+import Courses from "./components/CoursesPage";
+import logo from './logo.jpg';
+
+
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </Router>
+    <div>
+    <header>
+    <img src={logo}  alt="Logo" className="logo" />
+      <h1>LMS - Learning Management System</h1>
+      </header>
+  <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/courses" element={<Courses/>} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+  </BrowserRouter>
+    
+    </div>
+    
   );
 }
 

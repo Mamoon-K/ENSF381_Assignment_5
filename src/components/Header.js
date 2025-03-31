@@ -1,21 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles.css';
+import React from "react";
 
-function Header() {
+const about_style = {
+  padding: "20px",
+  textAlign: "center",
+  alignItems: "center",
+  margin: "20px auto",
+  maxWidth: "90%"
+};
+
+
+
+function HomePage() {
   return (
-    <header>
-      <img src="/images/logo.jpg" alt="LMS Logo" style={{ width: '100px', height: '100px' }} />
-      <h1>LMS - Learning Management System</h1>
-      <nav>
-        <ul className="nav-links">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/courses">Courses</Link></li>
-          <li><Link to="/login">Login</Link></li>
-        </ul>
-      </nav>
-    </header>
+    <div>
+      <div >
+        <nav style={styles.header}>
+        <a href='/' style={styles.link}> Home </a>
+        <a href='/login' style={styles.link}> Login </a>
+        <a href='/Courses'  style={styles.link}> Courses </a>
+        </nav>
+      </div>
+      <main class="index" style={about_style}>
+        <section id="about">
+            <h2>About LMS</h2>
+            <p>The Learning Management System (LMS) helps students and instructors manage courses, quizzes, and track performance efficiently.</p>
+            <h3>Key Features:</h3>
+            <div>
+                <p>- Enroll in courses</p>
+                <p>- Attempt quizzes</p>
+                <p>- View leaderboards</p>
+            </div>
+        </section>
+    </main>
+    </div>
   );
-}
+};
 
-export default Header;
+
+
+export default HomePage;
+
+const styles = {
+  header: { display: "flex", justifyContent: "space-between", padding: "10px", backgroundColor: "#003366", color: "white" },
+  link: { margin: "0px 10px", color: "white", textDecoration: "none" }
+};

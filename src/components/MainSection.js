@@ -1,67 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import courses from '../data/courses';
-import testimonials from '../data/testimonials';
-import '../styles.css';
+import React, { useState, useEffect } from "react";
+import courses from "../data/courses";
+import testimonials from "../data/testimonials";
+import "../styles.css"; 
 
-function MainSection() {
+
+
+
+const MainSection = () => {
   const [featuredCourses, setFeaturedCourses] = useState([]);
   const [displayedTestimonials, setDisplayedTestimonials] = useState([]);
 
   useEffect(() => {
-    // Randomize courses and testimonials on each render
-    const shuffledCourses = [...courses].sort(() => 0.5 - Math.random());
-    const shuffledTestimonials = [...testimonials].sort(() => 0.5 - Math.random());
-
-    setFeaturedCourses(shuffledCourses.slice(0, 3));       // 3 random courses
-    setDisplayedTestimonials(shuffledTestimonials.slice(0, 2)); // 2 random testimonials
+    setFeaturedCourses(courses.sort(() => 0.5 - Math.random()).slice(0, 3));
+    setDisplayedTestimonials(testimonials.sort(() => 0.5 - Math.random()).slice(0, 2));
   }, []);
 
   return (
-    <main className="index">
-      <section id="about">
-        <h2>About LMS</h2>
-        <p>
-          The Learning Management System (LMS) helps students and instructors manage courses,
-          quizzes, and track performance efficiently.
-        </p>
-        <h3>Key Features:</h3>
-        <ul>
-          <li>Enroll in courses</li>
-          <li>Attempt quizzes</li>
-          <li>View leaderboards</li>
-        </ul>
-      </section>
+    <main className="courseview">
+        <h2 style={{ textAlign: "center" }}>Featured Courses</h2>
+          <hr />
 
-      <section>
-        <h2>Featured Courses</h2>
-        <div className="course-list">
-          {featuredCourses.map(course => (
-            <div key={course.id} className="course-card">
-              <img
-                src={course.image}
-                alt={course.name}
-                style={{ width: '100%', borderRadius: '10px' }}
-              />
-              <h3>{course.name}</h3>
-              <p><strong>Instructor:</strong> {course.instructor}</p>
-              <p>{course.duration}</p>
+          <table className="cv">
+            <tr>
+              {featuredCourses.map((course) => (
+                  <td>
+                  <img src={course.image} alt={course.name}  />
+                  <p>{course.name}</p>
+                  <p>{course.instructor}</p>
+                  </td>
+            
+              ))}
+            </tr>
+              
+          </table>
+
+        <h2 >Testimonials</h2>
+        <hr />
+        <table className="cv">
+          <tr>
+          {displayedTestimonials.map((testimonial, index) => (
+            <td>
+            <div key={index} className="testimonial-card" >
+              <p><strong>{testimonial.studentName}</strong> - {testimonial.courseName}</p>
+              <p>"{testimonial.review}"</p>
+              <p>Rating: {"★".repeat(testimonial.rating)}</p>
             </div>
+            </td>
           ))}
-        </div>
-      </section>
-
-      <section>
-        <h2>Testimonials</h2>
-        {displayedTestimonials.map((t, index) => (
-          <div key={index} className="testimonial-box">
-            <p><strong>{t.studentName}</strong> on <em>{t.courseName}</em></p>
-            <p>"{t.review}"</p>
-            <p>{"★".repeat(t.rating)}{"☆".repeat(5 - t.rating)}</p>
-          </div>
-        ))}
-      </section>
+          </tr>
+      </table>
     </main>
   );
-}
+};
 
 export default MainSection;
