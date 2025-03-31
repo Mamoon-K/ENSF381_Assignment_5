@@ -16,6 +16,20 @@ const MainSection = () => {
   }, []);
 
   return (
+    <div>
+    <main class="index">
+        <section id="about">
+            <h2>About LMS</h2>
+            <p>The Learning Management System (LMS) helps students and instructors manage courses, quizzes, and track performance efficiently.</p>
+            <h3>Key Features:</h3>
+            <div>
+                <p>- Enroll in courses</p>
+                <p>- Attempt quizzes</p>
+                <p>- View leaderboards</p>
+            </div>
+        </section>
+    </main>
+
     <main className="courseview">
         <h2 style={{ textAlign: "center" }}>Featured Courses</h2>
           <hr />
@@ -50,7 +64,10 @@ const MainSection = () => {
           </tr>
       </table>
     </main>
+    </div>
   );
 };
 
 export default MainSection;
+
+

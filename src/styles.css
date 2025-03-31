@@ -151,3 +151,11 @@ table[class="cv"] td p {
   font-size: 20px;
   color: #333;
 }
+
+#about {
+  padding: 20px;
+  text-align: center;
+  align-items: center;
+  margin: 20px auto;
+  max-width: 90%;
+}

@@ -15,6 +15,7 @@ function App() {
     <img src={logo}  alt="Logo" className="logo" />
       <h1>LMS - Learning Management System</h1>
       </header>
+      
   <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -22,6 +23,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
         </Routes>
   </BrowserRouter>
+
+  
     
     </div>
     
@@ -29,3 +32,6 @@ function App() {
 }
 
 export default App;
+
+
+
