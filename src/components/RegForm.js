@@ -25,7 +25,6 @@ const RegForm = () => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-=+[\]{}|;:'",.<>?/`~])[A-Za-z\d!@#$%^&*()\-=+[\]{}|;:'",.<>?/`~]{8,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
     if (!usernameRegex.test(username)) {
       errors.push("Invalid username (Reason: Must start with a letter and be 3–20 characters long)");
     }
@@ -39,8 +38,7 @@ const RegForm = () => {
     }
 
     if (!emailRegex.test(email)) {
-      errors.push("Invalid email (Reason: Must include a valid '@' and domain like '.com', '.ca', etc)");
-
+      errors.push("Invalid email (Reason: Must include a valid '@' and a domain like '.com', '.ca', etc)");
     }
 
     return errors;
@@ -71,7 +69,8 @@ const RegForm = () => {
       } else {
         setErrors([data.message || 'Signup failed.']);
       }
-    } catch {
+    } catch (err) {
+      console.error("❌ Network error:", err);
       setErrors(['Server error.']);
     }
   };
