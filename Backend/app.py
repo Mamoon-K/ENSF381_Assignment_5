@@ -1,46 +1,43 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
+import random
 
 app = Flask(__name__)
+CORS(app, origins="http://localhost:3000")  # Enable CORS only for React dev server
 
-# Allow requests from React frontend at http://localhost:3000
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-# Load course and testimonial data
-with open('courses.json') as f:
+# Load data
+with open("courses.json") as f:
     courses = json.load(f)
-with open('testimonials.json') as f:
+
+with open("testimonials.json") as f:
     testimonials = json.load(f)
 
 students = []
 
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.get_json()
-    required_fields = ['username', 'password', 'email']
+    data = request.json
+    username = data.get('username')
 
-    if not all(field in data for field in required_fields):
-        return jsonify({'message': 'Missing fields'}), 400
+    for student in students:
+        if student['username'] == username:
+            return jsonify({"message": "Username already taken"}), 400
 
-    student_id = len(students) + 1
     new_student = {
-        'id': student_id,
-        'username': data['username'],
-        'password': data['password'],  # Note: Don't use plain passwords in production
-        'email': data['email'],
-        'enrolled_courses': []
+        "id": len(students) + 1,
+        "username": username,
+        "password": data.get('password'),
+        "email": data.get('email'),
+        "enrolled_courses": []
     }
-    students.append(new_student)
-    return jsonify({'message': 'Registration successful'}), 200
 
-@app.route('/courses', methods=['GET'])
-def get_courses():
-    return jsonify(courses)
+    students.append(new_student)
+    return jsonify({"message": "Signup successful!"}), 200
 
 @app.route('/testimonials', methods=['GET'])
 def get_testimonials():
-    return jsonify(testimonials)
+    return jsonify(random.sample(testimonials, 2))
 
 if __name__ == '__main__':
     print("✅ Loaded courses.json")
