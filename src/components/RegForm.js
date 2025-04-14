@@ -66,6 +66,7 @@ const RegForm = () => {
         setTimeout(() => {
           navigate('/login');
         }, 2000);
+        
       } else {
         setErrors([data.message || 'Signup failed.']);
       }
@@ -91,7 +92,7 @@ const RegForm = () => {
         <label>Email:</label>
         <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
-        <button type="submit" className="signup-button">Sign Up</button>
+        <button onClick={handleSubmit} className="signup-button">Sign Up</button>
 
         <div className="login-link">
           Already have an account? <a href="/login">Login here</a>

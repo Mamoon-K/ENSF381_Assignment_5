@@ -7,6 +7,8 @@ import courses from '../data/courses';
 
 function CoursesPage() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [message, setMessage] = useState(null);
+  
 
   useEffect(() => {
     const storedCourses = localStorage.getItem('enrolledCourses');
@@ -19,12 +21,28 @@ function CoursesPage() {
     localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
   }, [enrolledCourses]);
 
-  const handleEnroll = (course) => {
-    setEnrolledCourses([...enrolledCourses, course]);
-  };
+  function handleEnroll (id){
+      fetch(`http://127.0.0.1:5000/enroll/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ enrolledCourses})
+      })
+        .then(response => response.json())
+        .then(data => {
+          setEnrolledCourses(enrolledCourses => [...enrolledCourses, data]);
+          setMessage(data.message); 
+        })        
+        .catch(error => console.error('Error:', error));  
+  }
 
-  const handleDrop = (courseId) => {
-    setEnrolledCourses(enrolledCourses.filter(course => course.id !== courseId));
+  const handleDrop = (id) => {
+    fetch(`http://127.0.0.1:5000/drop/${id}`, {
+      method: 'DELETE'
+    })
+    .then(()=> setEnrolledCourses(enrolledCourses.filter(course => course.id !== id)))
+    .catch(error => console.error('Error:', error));
   };
 
   return (

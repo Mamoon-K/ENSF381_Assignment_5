@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import courses from "../data/courses";
 import testimonials from "../data/testimonials";
 import "../styles.css"; 
@@ -9,11 +9,27 @@ import "../styles.css";
 const MainSection = () => {
   const [featuredCourses, setFeaturedCourses] = useState([]);
   const [displayedTestimonials, setDisplayedTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setFeaturedCourses(courses.sort(() => 0.5 - Math.random()).slice(0, 3));
-    setDisplayedTestimonials(testimonials.sort(() => 0.5 - Math.random()).slice(0, 2));
+    fetch('http://127.0.0.1:5000/courses')
+      .then(response => response.json())
+      .then(data => {
+        setFeaturedCourses([...data]);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching courses:', error);
+        setLoading(false);
+      });
   }, []);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/testimonials') // Fetch testimonials from the server
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => setDisplayedTestimonials(data)) // Set the persons state with the fetched data
+    .catch(error => console.error('Error fetching persons:', error));
+    }, [])
 
   return (
     <div>

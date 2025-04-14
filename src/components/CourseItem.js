@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 
 function CourseItem({ course, isEnrolled, onEnroll }) {
   const [showDescription, setShowDescription] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+
+  
 
   return (
     <div
@@ -21,7 +25,7 @@ function CourseItem({ course, isEnrolled, onEnroll }) {
         <div className="hover-description">{course.description}</div>
       )}
       {!isEnrolled && (
-        <button onClick={() => onEnroll(course)}>Enroll Now</button>
+        <button onClick={() => onEnroll(course.id)}>Enroll Now</button>
       )}
     </div>
   );
