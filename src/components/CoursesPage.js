@@ -38,31 +38,12 @@ function CoursesPage() {
         .catch(error => console.error('Error:', error));  
   }
 
-   const handleDrop = (courseId) => {
-    fetch(`http://127.0.0.1:5000/drop/${studentId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id: courseId })
+  const handleDrop = (id) => {
+    fetch(`http://127.0.0.1:5000/drop/${id}`, {
+      method: 'DELETE'
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to drop course');
-        }
-        return response.json();
-      })
-      .then(() => {
-        // Remove the dropped course from the list
-        setEnrolledCourses(prevCourses => 
-          prevCourses.filter(course => course.id !== courseId)
-        );
-        setMessage('Successfully dropped course');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setMessage('Failed to drop course');
-      });
+    .then(()=> setEnrolledCourses(enrolledCourses.filter(course => course.id !== id)))
+    .catch(error => console.error('Error:', error));
   };
 
   return (

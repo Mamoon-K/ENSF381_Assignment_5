@@ -67,23 +67,17 @@ def enroll(student_id):
 
     
     
-@app.route('/drop/<int:student_id>', methods=['DELETE'])
+@app.route('/drop/<student_id>', methods=['DELETE'])
 def drop_course(student_id):
-    data = request.json
-    course_id = data.get('id')
+    course_id = request.json.get('id')
     
     # Find the student
     student = next((s for s in students if s['id'] == student_id), None)
     if not student:
         return jsonify({"message": "Student not found"}), 404
     
-    # Check if the course exists in the student's enrolled courses
-    if not any(c.get('id') == course_id for c in student['enrolled_courses']):
-        return jsonify({"message": "Course not found in student's enrolled courses"}), 404
-    
-    # Remove course from enrolled_courses
-    student['enrolled_courses'] = [c for c in student['enrolled_courses'] if c.get('id') != course_id]
-    
+ 
+    student['enrolled_courses'] = [c for c in student['enrolled_courses'] if c['id'] != course_id]
     return jsonify({"message": "Course dropped successfully"}), 200
 
 
